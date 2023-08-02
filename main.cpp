@@ -1,5 +1,6 @@
-// The program failed to run and the green LED flashed SOS 
-//
+// The program failed to run and the green LED flashed SOS
+ 
+// 0x200015FC is SRAM1 memory location of where error is occuring due to printf statement//
 
 /*  ++ MbedOS Error Info ++
 Error Status: 0x80010133 Code: 307 Module: 1
@@ -10,7 +11,7 @@ Current Thread: main Id: 0x20001DB4 Entry: 0x8006923 StackSize: 0x1000 StackMem:
 For more info, visit: https://mbed.com/s/error?error=0x80010133&tgt=B_L4S5I_IOT01A
 -- MbedOS Error Info --
 */
-// 0x200015FC is SRAM1 memory location of where error is occuring due to printf statement
+
 
 
 
