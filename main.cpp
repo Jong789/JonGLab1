@@ -1,5 +1,4 @@
-// The program failed to run and the green LED flashed SOS
- 
+// The program failed to run and the green LED flashed SOS 
 // 0x200015FC is SRAM1 memory location of where error is occuring due to printf statement//
 
 /*  ++ MbedOS Error Info ++
