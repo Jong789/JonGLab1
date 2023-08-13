@@ -1,34 +1,32 @@
-// The program failed to run and the green LED flashed SOS 
-// 0x200015FC is SRAM1 memory location of where error is occuring due to printf statement//
-
-/*  ++ MbedOS Error Info ++
-Error Status: 0x80010133 Code: 307 Module: 1
-Error Message: Mutex: 0x200015FC, Not allowed in ISR context
-Location: 0x8009351
-Error Value: 0x200015FC
-Current Thread: main Id: 0x20001DB4 Entry: 0x8006923 StackSize: 0x1000 StackMem: 0x20000580 SP: 0x2009FF54 
-For more info, visit: https://mbed.com/s/error?error=0x80010133&tgt=B_L4S5I_IOT01A
--- MbedOS Error Info --
-*/
-
-
-
+/* The printf function does not work within the void button_interrupt function 
+ The printf function works when you put it into the main part of the program.
+ This is because printf function is non re-entrant and its behaviour is modified when called from the 
+ Interrupt Service Routine.
+ A flag variable is created to signify whether the button is pressed or not pressed
+ The printf in the while loop will keep printing "Button pressed" unless the flag is reset to zero
+ after the printf statement */
 
 #include "mbed.h"
-// JonGLab1
 
 // main() runs in its own thread in the OS
-InterruptIn button(PC_13);
+InterruptIn button(PC_13); 
 
-void button_interrupt(){
-    printf("Button pressed \r\n");
+char flag0 = 0;  // create a flag variable
+
+void fall_interrupt(){
+    flag0 = 1;  // this means that when interrupt is triggered the value of flag becomes 1
 }
 
 int main()
 {
-    button.fall(&button_interrupt);
+    button.fall(&fall_interrupt);
+  
     while (true) {
-
+        if(flag0 == 1)
+                printf("Button is pressed \r\n");
+                flag0=0; //This resets the flag
+        ThisThread::sleep_for(50);
+        }
     }
-}
+
 
